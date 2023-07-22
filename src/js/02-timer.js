@@ -12,6 +12,7 @@ const minutesNumber = document.querySelector('[data-minutes]');
 const secondsNumber = document.querySelector('[data-seconds]');
 
 start.disabled = true;
+let interval = null;
 
 const options = {
 enableTime: true,
@@ -40,7 +41,7 @@ input.disabled = true;
 
 const timer = {
   start() {
-    let interval = setInterval(() => {
+    interval = setInterval(() => {
       const timeLeft = fp.selectedDates[0].getTime() - Date.now();
       const { days, hours, minutes, seconds } = convertMs(timeLeft);
       daysNumber.textContent = days;

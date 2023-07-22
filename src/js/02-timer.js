@@ -40,7 +40,7 @@ input.disabled = true;
 
 const timer = {
   start() {
-    interval = setInterval(() => {
+    let interval = setInterval(() => {
       const timeLeft = fp.selectedDates[0].getTime() - Date.now();
       const { days, hours, minutes, seconds } = convertMs(timeLeft);
       daysNumber.textContent = days;

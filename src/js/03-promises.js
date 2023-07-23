@@ -28,17 +28,21 @@ let delay = Number(nameDelay.value);
 let step = Number(nameStep.value);
 let amount = Number(nameAmount.value);
 
+if (delay < 0 || step < 0 || amount <= 0) {
+  return Notify.failure(`❌ Use positive values`);
+} else {
   for (let position = 1; position <= amount; position += 1) {
+    createPromise(position, delay)
+      .then(({ position, delay }) => {
+        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      })
+      .catch(({ position, delay }) => {
+        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+      });
+      
     delay += step;
-
-  createPromise(position, delay)
-    .then(({ position, delay }) => {
-      Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-    })
-    .catch(({ position, delay }) => {
-      Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-    });
   }
+}
 }
 
 

@@ -13,6 +13,7 @@ const secondsNumber = document.querySelector('[data-seconds]');
 
 start.disabled = true;
 let interval = null;
+let userTime = null;
 
 const options = {
 enableTime: true,
@@ -21,7 +22,8 @@ defaultDate: new Date(),
 minuteIncrement: 1,
 onClose(selectedDates) {
   console.log(selectedDates[0]);
-if (Date.now() > selectedDates[0].getTime()) {
+  userTime = selectedDates[0].getTime();
+if (Date.now() > userTime) {
   start.disabled = true;
   return Notify.failure('Please choose a date in the future');
 } 
@@ -42,7 +44,7 @@ input.disabled = true;
 const timer = {
   start() {
     interval = setInterval(() => {
-      const timeLeft = fp.selectedDates[0].getTime() - Date.now();
+      const timeLeft = userTime - Date.now();
       const { days, hours, minutes, seconds } = convertMs(timeLeft);
       daysNumber.textContent = days;
       hoursNumber.textContent = hours;
